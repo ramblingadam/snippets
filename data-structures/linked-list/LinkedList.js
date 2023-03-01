@@ -41,6 +41,41 @@ class LinkedList {
     }
     this.length += 1
   }
+  insertAtIndex(value, index) {
+    if(index <= 0) {
+      this.prepend(value)
+    }
+    else if(index >= this.length - 1) {
+      this.append(value)
+    }
+    else {
+      let current = this.head
+      let prev = null
+      for(let i = 0; i < index; i ++) {
+        prev = current
+        current = current.next
+      }
+      prev.next = new Node(value, current)
+      this.length += 1
+    }
+
+  }
+  removeAtIndex(index) {
+    if(index <= 0 || index > this.length - 1) {
+      return null
+    }
+    else {
+      let current = this.head
+      let prev = null
+      for(let i = 0; i < index; i ++) {
+        prev = current
+        current = current.next
+      }
+      prev.next = current.next
+      this.length -= 1
+    }
+
+  }
   deleteHead() {
     if(!this.head) {
       return null
@@ -72,6 +107,19 @@ class LinkedList {
     }
     this.length -= 1
   }
+
+  getByIndex(index) {
+    if(index > this.length - 1 || index < 0) {
+      return null
+    }
+    else {
+      let current = this.head
+      for(let i = 0; i < index; i ++){
+        current = current.next
+      }
+      return current
+    }
+  }
   search(value) {
     if(!this.head) {
       return null
@@ -85,6 +133,17 @@ class LinkedList {
       }
       return null
     }
+  }
+  print() {
+    let output = ''
+    let current = this.head
+    while(current) {
+      output += `${current.value} => `
+      current = current.next
+    }
+    output += 'null'
+    console.log(output)
+    return output
   }
 }
 
