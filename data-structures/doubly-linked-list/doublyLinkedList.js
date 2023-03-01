@@ -107,4 +107,4 @@ class DoublyLinkedList {
   }
 
 }
-export default DoublyLinkedList
+module.exports = DoublyLinkedList

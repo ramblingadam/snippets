@@ -7,31 +7,39 @@ class Node {
 
 class LinkedList {
   constructor() {
-    this.head = null
+    this.head = this.tail = null
+    this.length = 0
   }
   append(value) {
     const node = new Node(value)
     if(!this.head) {
-      this.head = node
+      this.head = this.tail = node
     }
     else {
-      let current = this.head
-      while(current.next) {
-        current = current.next
-      }
-      current.next = node
+      const oldTail = this.tail
+      this.tail = node
+      oldTail.next = node
     }
+    this.length += 1
+    // else {
+    //   let current = this.head
+    //   while(current.next) {
+    //     current = current.next
+    //   }
+    //   current.next = node
+    // }
   }
   prepend(value) {
     const node = new Node(value)
     if(!this.head) {
-      this.head = node
+      this.head = this.tail = node
     }
     else {
       const oldHead = this.head
       this.head = node
       node.next = oldHead
     }
+    this.length += 1
   }
   deleteHead() {
     if(!this.head) {
@@ -43,6 +51,7 @@ class LinkedList {
     else {
       this.head = this.head.next
     }
+    this.length -= 1
   }
 
   deleteTail() {
@@ -61,6 +70,7 @@ class LinkedList {
       }
       prev.next = null
     }
+    this.length -= 1
   }
   search(value) {
     if(!this.head) {
@@ -78,4 +88,4 @@ class LinkedList {
   }
 }
 
-export default LinkedList
+module.exports = LinkedList
