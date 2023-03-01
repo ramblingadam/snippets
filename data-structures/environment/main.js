@@ -11,4 +11,10 @@ list1.prepend(-1)
 
 console.log(list1.search(4))
 
-// console.log(list1)
+list1.deleteTail()
+list1.deleteHead()
+list1.deleteHead()
+list1.deleteHead()
+list1.deleteHead()
+
+console.log(list1)

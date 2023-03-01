@@ -33,6 +33,35 @@ class LinkedList {
       node.next = oldHead
     }
   }
+  deleteHead() {
+    if(!this.head) {
+      return null
+    }
+    else if(!this.head.next) {
+      this.head = null
+    }
+    else {
+      this.head = this.head.next
+    }
+  }
+
+  deleteTail() {
+    if(!this.head) {
+      return null
+    }
+    else if(!this.head.next) {
+      this.head = null
+    }
+    else {
+      let current = this.head
+      let prev = null
+      while(current.next) {
+        prev = current
+        current = current.next
+      }
+      prev.next = null
+    }
+  }
   search(value) {
     if(!this.head) {
       return null
