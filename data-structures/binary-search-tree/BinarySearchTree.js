@@ -19,69 +19,169 @@ class BinarySearchTree {
   insert(value) {
     this.count ++
 
-    let newNode = new Node(value);
+    let newNode = new Node(value)
     // let current = this.root
-    (function findInsertPoint(current) {
+    function findInsertPoint(current) {
+      //// If value to be inserted is less than the value of the current node, go LEFT.
       if(newNode.value < current.value) {
+        //// If the current node already has a LEFT child, recurse on that child.
         if(current.left) {
           return findInsertPoint(current.left)
         }
+        //// Otherwise, insert our new node as the LEFT child of the current node.
         else {
           current.left = newNode
         }
       }
+      //// If value to be inserted is greater than the value of the current node, go RIGHT.
       if(newNode.value > current.value) {
+        //// If the current node already has a RIGHT child, recurse on that child.
         if(current.right) {
           return findInsertPoint(current.right)
         }
+        //// Otherwise, insert our new node as the RIGHT child of the current node.
         else {
           current.right = newNode
         }
       }
-    })(this.root);
-    // findInsertPoint(this.root)
+    }
+
+    findInsertPoint(this.root)
   }
 
   min() {
+    function findMin(current) {
+      if(current.left) {
+        return findMin(current.left)
+      }
+      else return current.value
+    }
 
+    return findMin(this.root)
   }
 
   max() {
+    function findMax(current) {
+      if(current.right) {
+        return findMax(current.right)
+      }
+      else return current.value
+    }
 
+    return findMax(this.root)
   }
 
-  contains() {
+  contains(value) {
+    //// Old way. Works, but checks more nodes than needed. Would work great for searching a binary tree that is not a search tree, though.
+    // function searchLeft(current) {
+    //   if(current.value === value) return true
+    //   else if (current.left) {
+    //     return (searchLeft(current.left) || searchRight(current.left))
+    //   }
+    //   else return false
+    // }
+    // function searchRight(current) {
+    //   if(current.value === value) return true
+    //   else if (current.right) {
+    //     return (searchRight(current.right) || searchLeft(current.right))
+    //   }
+    //   else return false
+    // }
 
+    // return searchLeft(this.root) || searchRight(this.root)
+    //// New way. Take advantage of binary search tree structure to speed up search.
+    function search(current) {
+      if(value === current.value) return true
+      else if(value < current.value && current.left) {
+        return search(current.left)
+      }
+      else if(value > current.value && current.right) {
+        return search(current.right)
+      }
+      else return false
+    }
+
+    return search(this.root)
   }
 
-  //// Depth first search
-  //in-order
+  //// --- Depth first search: Searches branch by branch
+  //// in-order
+  //// for each node, checks and returns values in this order: left, root, right
   dfsInOrder() {
-
+    const result = []
+    function search(current) {
+      if(current.left) search(current.left)
+      result.push(current.value)
+      if(current.right) search(current.right)
+    }
+    search(this.root)
+    return result
   }
-  //pre-order
+  //// pre-order
+  //// for each node, checks and returns in this order: root, left, right
   dfsPreOrder() {
-
+    const result = []
+    function search(current) {
+      result.push(current.value)
+      if(current.left) search(current.left)
+      if(current.right) search(current.right)
+    }
+    search(this.root)
+    return result
   }
-  //post-order
+  ////post-order
+  //// fo reach node, checks and returns in this order: left, right, root
   dfsPostOrder() {
-
+    const result = []
+    function search(current) {
+      if(current.left) search(current.left)
+      if(current.right) search(current.right)
+      result.push(current.value)
+    }
+    search(this.root)
+    return result
   }
 
-  //// Breadth first search
+  //// --- Breadth first search: Searches level by level
+  //// Utilize a queue.
   bfs() {
+    //// first try inefficient array queue
+    const queue = []
+    const result = []
+    function search(current) {
+      result.push(current.value)
+      if(current.left) queue.push(current.left)
+      if(current.right) queue.push(current.right)
+      // console.table(queue)
 
+      while(queue.length) {
+        search(queue.shift())
+      }
+    }
+    search(this.root)
+    return result
   }
 }
 
-const bst = new BinarySearchTree(10)
+const bst = new BinarySearchTree(15)
 
-bst.insert(7)
+bst.insert(3)
+bst.insert(36)
+bst.insert(2)
 bst.insert(12)
-bst.insert(9)
-bst.insert(8)
+bst.insert(28)
+bst.insert(39)
 
 console.log(bst)
+
+console.log(bst.min())
+console.log(bst.max())
+
+// console.log(bst.contains(11))
+console.log(bst.dfsInOrder())
+console.log(bst.dfsPreOrder())
+console.log(bst.dfsPostOrder())
+console.log(bst.bfs())
 
 
 
