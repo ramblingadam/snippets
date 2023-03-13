@@ -71,6 +71,18 @@ class BinarySearchTree {
     return findMax(this.root)
   }
 
+  maxDepth() {
+    //// Leon's solution:
+    function dig(current) {
+      if(!current) return 0
+      else return Math.max(dig(current.left), dig(current.right)) + 1
+    }
+    return dig(this.root)
+
+    //// My solution:
+    
+  }
+
   contains(value) {
     //// Old way. Works, but checks more nodes than needed. Would work great for searching a binary tree that is not a search tree, though.
     // function searchLeft(current) {
@@ -173,6 +185,10 @@ bst.insert(12)
 bst.insert(28)
 bst.insert(39)
 bst.insert(41)
+bst.insert(48)
+bst.insert(30)
+bst.insert(35)
+bst.insert(33)
 
 console.log(bst)
 
@@ -184,6 +200,7 @@ console.log(bst.dfsInOrder())
 console.log(bst.dfsPreOrder())
 console.log(bst.dfsPostOrder())
 console.log(bst.bfs())
+console.log(bst.maxDepth())
 
 
 
