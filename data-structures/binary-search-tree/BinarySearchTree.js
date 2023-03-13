@@ -9,7 +9,7 @@ class Node {
 class BinarySearchTree {
   constructor(value) {
     this.root = new Node(value)
-    this.count = 0
+    this.count = 1
   }
 
   size() {
@@ -130,7 +130,7 @@ class BinarySearchTree {
     return result
   }
   ////post-order
-  //// fo reach node, checks and returns in this order: left, right, root
+  //// for each node, checks and returns in this order: left, right, root
   dfsPostOrder() {
     const result = []
     function search(current) {
@@ -145,20 +145,21 @@ class BinarySearchTree {
   //// --- Breadth first search: Searches level by level
   //// Utilize a queue.
   bfs() {
-    //// first try inefficient array queue
+    //// Array-Based queue
     const queue = []
     const result = []
     function search(current) {
       result.push(current.value)
       if(current.left) queue.push(current.left)
       if(current.right) queue.push(current.right)
-      // console.table(queue)
 
       while(queue.length) {
         search(queue.shift())
       }
     }
+
     search(this.root)
+
     return result
   }
 }
@@ -171,6 +172,7 @@ bst.insert(2)
 bst.insert(12)
 bst.insert(28)
 bst.insert(39)
+bst.insert(41)
 
 console.log(bst)
 
