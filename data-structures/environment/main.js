@@ -1,5 +1,5 @@
-import DoublyLinkedList from "../doublyLinkedList.js";
-import LinkedList from "../linkedList.js";
+import DoublyLinkedList from "../doubly-linked-list/doublyLinkedList.js";
+import LinkedList from "../linked-list/LinkedList.js";
 
 const list1 = new LinkedList()
 

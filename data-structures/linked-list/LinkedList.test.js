@@ -165,6 +165,7 @@ describe('#removeAtIndex', () => {
       expect(list.getByIndex(1).value).toBe(2)
       expect(list.getByIndex(0).next.value).toBe(2)
       expect(list.getByIndex(1).next.value).toBe(3)
+      expect(list.length).toBe(3)
     })
     
   })
