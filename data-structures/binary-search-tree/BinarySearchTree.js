@@ -16,11 +16,11 @@ class BinarySearchTree {
     return this.count
   }
 
+
   insert(value) {
     this.count ++
 
     let newNode = new Node(value)
-    // let current = this.root
     function findInsertPoint(current) {
       //// If value to be inserted is less than the value of the current node, go LEFT.
       if(newNode.value < current.value) {
